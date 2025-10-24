@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日祝福</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .birthday-person {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: left;
+            padding: 0 10px;
+        }
+        
+        .cake {
+            width: 200px;
+            height: 100px;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .cake-base {
+            width: 180px;
+            height: 40px;
+            background: #f8c291;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+        
+        .cake-middle {
+            width: 150px;
+            height: 30px;
+            background: #e55039;
+            border-radius: 8px;
+            margin: 0 auto;
+        }
+        
+        .cake-top {
+            width: 120px;
+            height: 25px;
+            background: #f8c291;
+            border-radius: 6px;
+            margin: 0 auto;
+        }
+        
+        .candle {
+            width: 10px;
+            height: 30px;
+            background: #ff9ff3;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .flame {
+            width: 15px;
+            height: 20px;
+            background: #ff9f43;
+            border-radius: 50% 50% 20% 20%;
+            margin: 0 auto;
+            animation: flicker 1.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .balloons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .balloon {
+            width: 40px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 10px;
+            position: relative;
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        .balloon:before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 15px;
+            background: #333;
+        }
+        
+        .balloon:nth-child(1) {
+            background: #ff6b6b;
+            animation-delay: 0s;
+        }
+        
+        .balloon:nth-child(2) {
+            background: #48dbfb;
+            animation-delay: 0.5s;
+        }
+        
+        .balloon:nth-child(3) {
+            background: #1dd1a1;
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            opacity: 0.7;
+            border-radius: 50%;
+            top: -10px;
+            animation: fall 5s linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hidden-message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-style: italic;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 生日快乐！ 🎉</h1>
+        <div class="birthday-person" id="birthdayPerson">亲爱的朋友</div>
+        
+        <div class="message">
+            <p>在这个特别的日子里，我想送上最真挚的祝福：</p>
+            <p>愿你的每一天都充满阳光和欢笑，愿你的每一个梦想都能实现，愿你的生活永远充满爱与快乐！</p>
+            <p>祝你生日快乐，万事如意！</p>
+        </div>
+        
+        <div class="cake">
+            <div class="cake-base"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-top"></div>
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+        </div>
+        
+        <div class="balloons">
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+        </div>
+        
+        <button onclick="showSpecialMessage()">点击获取特别祝福</button>
+        
+        <div class="hidden-message" id="specialMessage">
+            愿你的人生如这生日蜡烛般明亮温暖，如这生日蛋糕般甜蜜美好！新的一岁，继续闪闪发光吧！✨
+        </div>
+        
+        <div class="footer">
+            <p>祝福来自关心你的人 ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // 创建五彩纸屑效果
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3'];
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(confetti);
+            }
+        }
+        
+        // 显示特别祝福
+        function showSpecialMessage() {
+            const message = document.getElementById('specialMessage');
+            message.style.display = 'block';
+            
+            // 添加一些动画效果
+            message.style.animation = 'fadeIn 1s';
+            
+            // 创建更多五彩纸屑
+            createConfetti();
+        }
+        
+        // 页面加载时创建五彩纸屑
+        window.onload = function() {
+            createConfetti();
+            
+            // 可以在这里添加寿星的名字
+            const name = prompt("请输入寿星的名字:", "亲爱的朋友");
+            if (name && name.trim() !== "") {
+                document.getElementById('birthdayPerson').textContent = name;
+            }
+        };
+    </script>
+</body>
+</html>
